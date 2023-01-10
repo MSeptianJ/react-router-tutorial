@@ -15,6 +15,7 @@ import Root, {
 import Contact, { loader as contactLoader } from './routes/contact';
 import EditContact, { action as editAction } from './routes/edit';
 import { action as destroyAction } from './routes/destroy';
+import Index from './routes';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
 			loader={rootLoader}
 			action={rootAction}
 		>
+			<Route index={true} element={<Index />} />
 			<Route
 				path="contacts/:contactId"
 				element={<Contact />}
@@ -37,7 +39,11 @@ const router = createBrowserRouter(
 				loader={contactLoader}
 				action={editAction}
 			/>
-			<Route path="contacts/:contactId/destroy" action={destroyAction} />
+			<Route
+				path="contacts/:contactId/destroy"
+				action={destroyAction}
+				errorElement={<div>Oops! There was an error</div>}
+			/>
 		</Route>
 	)
 );
